@@ -27,17 +27,28 @@ import 'package:social_mediaapp/features/auth/data/firebase_auth_repo.dart';
 import 'package:social_mediaapp/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:social_mediaapp/features/auth/presentation/cubits/auth_states.dart';
 import 'package:social_mediaapp/features/auth/presentation/pages/auth_page.dart';
-import 'package:social_mediaapp/features/post/presentation/pages/homepage.dart';
+import 'package:social_mediaapp/features/home/presentation/pages/homepage.dart';
+import 'package:social_mediaapp/features/profile/data/firebase_profile_user.dart';
+import 'package:social_mediaapp/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:social_mediaapp/themes/light_mode_theme.dart';
 
 class MyApp extends StatelessWidget {
   final authrepo = FirebaseAuthRepo();
+  final profilerepo = ProfileUserImpl();
   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: authrepo)..checkAuthenticated(),
+    return MultiBlocProvider(
+      providers: [
+        //auth cubit
+        BlocProvider(
+            create: (context) =>
+                AuthCubit(authRepo: authrepo)..checkAuthenticated()),
+        //profile cubit
+        BlocProvider(
+            create: (context) => ProfileCubit(profileRepo: profilerepo))
+      ],
       child: MaterialApp(
         useInheritedMediaQuery: true,
         locale: DevicePreview.locale(context),

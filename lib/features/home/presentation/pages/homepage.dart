@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_mediaapp/features/post/components/my_drawer.dart';
+import 'package:social_mediaapp/features/home/components/my_drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,7 +9,9 @@ class HomePage extends StatelessWidget {
     //scaffold
     return Scaffold(
       //appbar
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('HOME'),
+      ),
       body: Center(
         child: Text('Home Page'),
       ),
