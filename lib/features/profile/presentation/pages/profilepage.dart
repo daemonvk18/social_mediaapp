@@ -6,6 +6,7 @@ import 'package:social_mediaapp/features/auth/presentation/cubits/auth_cubit.dar
 import 'package:social_mediaapp/features/profile/presentation/components/bio_text_box.dart';
 import 'package:social_mediaapp/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:social_mediaapp/features/profile/presentation/cubits/profile_states.dart';
+import 'package:social_mediaapp/features/profile/presentation/pages/edit_profile_pages.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;
@@ -35,9 +36,11 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileStates>(builder: (context, state) {
       if (state is ProfileLoading) {
-        return Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.primary,
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         );
       } else if (state is ProfileLoaded) {
@@ -55,7 +58,12 @@ class _ProfilePageState extends State<ProfilePage> {
               actions: [
                 //update profile button(settings)
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProfilePage(
+                                  user: user,
+                                ))),
                     icon: Icon(
                       CupertinoIcons.settings,
                       color: Theme.of(context).colorScheme.primary,
